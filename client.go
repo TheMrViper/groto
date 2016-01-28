@@ -64,7 +64,10 @@ func (cli *Client) putConn(conn *gConn) {
 
 	if len(cli.idleConns) < cli.config.MaxIdleConns || cli.config.MaxIdleConns == 0 {
 		cli.idleConns = append(cli.idleConns, conn)
+		return
 	}
+	conn.Close()
+	return
 }
 
 func (cli *Client) Send(request ClientRequest, response ClientResponse) (err error) {
