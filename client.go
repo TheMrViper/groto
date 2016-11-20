@@ -51,8 +51,9 @@ func (cli *Client) getConn() (*gConn, error) {
 	defer cli.mutex.Unlock()
 
 	if len(cli.idleConns) > 0 {
+		с := cli.idleConns[0]
 		cli.idleConns = cli.idleConns[1:]
-		return cli.idleConns[0], nil
+		return c, nil
 	}
 
 	return cli.newConn()
